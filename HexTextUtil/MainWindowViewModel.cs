@@ -42,6 +42,7 @@ namespace HexTextUtil
         public ReactiveCommand HexFilePreviewDragOver { get; } = new ReactiveCommand();
         public ReactiveCommand HexFileDrop { get; } = new ReactiveCommand();
         public AsyncReactiveCommand HexFileRead { get; } = new AsyncReactiveCommand();
+        public ReactivePropertySlim<bool> IsEnableHexFileUpdate { get; } = new ReactivePropertySlim<bool>(true);
         // HexFile Info 設定GUI
         public ReactivePropertySlim<string> HexTextAddressBegin { get; } = new ReactivePropertySlim<string>("-");
         public ReactivePropertySlim<string> HexTextAddressEnd { get; } = new ReactivePropertySlim<string>("-");
@@ -56,8 +57,8 @@ namespace HexTextUtil
         // CheckSum計算GUI
         public AsyncReactiveCommand CalcCheckSum { get; } = new AsyncReactiveCommand();
         public ReactivePropertySlim<string> CalcCheckSumResult { get; } = new ReactivePropertySlim<string>("");
-        // ダイアログ
-        public ReactivePropertySlim<string> DialogMessage { get; set; } = new ReactivePropertySlim<string>("");
+        // ステータスバー
+        public ReactivePropertySlim<string> StatusBarMessage { get; } = new ReactivePropertySlim<string>("");
 
         // hex情報
         HexText.HexInfo hex;
@@ -70,6 +71,8 @@ namespace HexTextUtil
             Config = new Config();
             Config.Load();
             // hex/motファイル指定GUI
+            IsEnableHexFileUpdate
+                .AddTo(disposables);
             HexFilePathSelect
                 .Subscribe(_ =>
                 {
@@ -94,12 +97,21 @@ namespace HexTextUtil
             HexFileRead
                 .Subscribe(async (_) =>
                 {
-                    DialogMessage.Value = "Reading HexText File ...";
+                    // GUI無効化
+                    IsEnableHexFileUpdate.Value = false;
+                    StatusBarMessage.Value = "ファイル読み込み中...";
+
+                    // 処理遅延確認用デバッグコード
                     //await Task.Delay(5000);
+                    // ファイル読み込み
                     await OnClickHexFileRead(_);
                     // CheckSum計算
-                    DialogMessage.Value = "Calculating Checksum ...";
+                    StatusBarMessage.Value = "チェックサム計算中...";
                     await OnClickCalcCheckSum(_);
+
+                    // GUI有効化
+                    StatusBarMessage.Value = "ファイル読み込み完了.";
+                    IsEnableHexFileUpdate.Value = true;
                 })
                 .AddTo(disposables);
             // HexFile Info 設定GUI
@@ -129,15 +141,24 @@ namespace HexTextUtil
             CalcCheckSum
                 .Subscribe(async _ =>
                 {
-                    DialogMessage.Value = "Calculating Checksum ...";
+                    // GUI無効化
+                    IsEnableHexFileUpdate.Value = false;
+                    StatusBarMessage.Value = "チェックサム計算中...";
+
+                    // 処理遅延確認用デバッグコード
                     //await Task.Delay(5000);
                     // CheckSum計算
                     await OnClickCalcCheckSum(_);
+
+                    // GUI有効化
+                    StatusBarMessage.Value = "チェックサム計算完了.";
+                    IsEnableHexFileUpdate.Value = true;
                 })
                 .AddTo(disposables);
             CalcCheckSumResult
                 .AddTo(disposables);
-            DialogMessage
+            // 
+            StatusBarMessage
                 .AddTo(disposables);
         }
 

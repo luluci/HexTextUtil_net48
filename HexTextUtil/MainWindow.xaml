@@ -7,7 +7,7 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:ri="clr-namespace:Reactive.Bindings.Interactivity;assembly=ReactiveProperty.WPF"
         mc:Ignorable="d"
-        Title="HexTextUtil" Height="320" Width="308" MinWidth="350" MinHeight="320">
+        Title="HexTextUtil" Height="340" Width="308" MinWidth="350" MinHeight="350">
     <Grid Background="#FFF1F2F3">
         <Grid Margin="0,10,0,0" Height="20" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
@@ -15,8 +15,8 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Row="0" Grid.Column="0" Command="{Binding HexFilePathSelect}" Content="File" Margin="10,0,5,0" />
-            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding HexFilePath.Value}" AllowDrop="True" TextWrapping="NoWrap" FontFamily="Meiryo UI" Cursor="IBeam" Margin="0,0,0,0">
+            <Button Grid.Row="0" Grid.Column="0" Command="{Binding HexFilePathSelect}" IsEnabled="{Binding IsEnableHexFileUpdate.Value}" Content="File" Margin="10,0,5,0" />
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding HexFilePath.Value}" IsEnabled="{Binding IsEnableHexFileUpdate.Value}" AllowDrop="True" TextWrapping="NoWrap" FontFamily="Meiryo UI" Cursor="IBeam" Margin="0,0,0,0">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="PreviewDragOver">
                         <ri:EventToReactiveCommand Command="{Binding HexFilePreviewDragOver}"/>
@@ -26,7 +26,7 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </TextBox>
-            <Button Grid.Row="0" Grid.Column="2" Command="{Binding HexFileRead}" Content="Read" Margin="5,0,15,0" Cursor="Hand"/>
+            <Button Grid.Row="0" Grid.Column="2" Command="{Binding HexFileRead}" IsEnabled="{Binding IsEnableHexFileUpdate.Value}" Content="Read" Margin="5,0,15,0" Cursor="Hand"/>
         </Grid>
         <GroupBox Header="HexTextFile Info" HorizontalAlignment="Left" Margin="10,37,0,0" Width="233"  Height="73" VerticalAlignment="Top" Background="White">
             <Grid>
@@ -107,7 +107,7 @@
                     </Grid.ColumnDefinitions>
                     <CheckBox Grid.Column="0" Width="auto" IsChecked="{Binding CheckSumSettings/CalcTotal.Value}" IsEnabled="{Binding IsEnableCheckSumSettings.Value}" Content="補数なし" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <CheckBox Grid.Column="1" Width="auto" IsChecked="{Binding CheckSumSettings/CalcTwosComp.Value}" IsEnabled="{Binding IsEnableCheckSumSettings.Value}" Content="2の補数" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                    <Button Grid.Column="2" Content="Calc" Command="{Binding CalcCheckSum}" Margin="10,0,5,0" Padding="0"/>
+                    <Button Grid.Column="2" Content="Calc" Command="{Binding CalcCheckSum}" IsEnabled="{Binding IsEnableHexFileUpdate.Value}" Margin="10,0,5,0" Padding="0"/>
                 </Grid>
                 <Grid Margin="0,90,0,0" Height="40" VerticalAlignment="Top">
                     <Grid.ColumnDefinitions>
@@ -117,5 +117,10 @@
                 </Grid>
             </Grid>
         </GroupBox>
+        <StatusBar Height="24" VerticalAlignment="Bottom" BorderBrush="Black">
+            <StatusBarItem>
+                <Label Content="{Binding StatusBarMessage.Value}" Margin="0" Padding="0"/>
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 </Window>
