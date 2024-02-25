@@ -63,10 +63,10 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Margin="5,0,0,0" Text="CheckSum Info" FontFamily="Meiryo UI" FontSize="11" VerticalAlignment="Center" Foreground="White" />
-                    <ComboBox Grid.Column="1" Height="20" Margin="0,0,2,0" VerticalAlignment="Center" ItemsSource="{Binding CheckSumSettings, Mode=OneWay}" SelectedIndex="{Binding SelectIndexCheckSumSettings.Value}" IsSynchronizedWithCurrentItem="True">
+                    <ComboBox Grid.Column="1" Height="20" Margin="0,0,2,0" ItemsSource="{Binding CheckSumSettings, Mode=OneWay}" SelectedIndex="{Binding SelectIndexCheckSumSettings.Value}" IsSynchronizedWithCurrentItem="True">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Name}" />
+                                <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
@@ -83,7 +83,7 @@
                     <TextBlock Grid.Column="2" Text="-" Width="auto" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <TextBox Grid.Column="3" Text="{Binding CheckSumSettings/AddressRangeEndText.Value}" IsReadOnly="{Binding IsReadOnlyCheckSumSettings.Value}" Height="auto" Width="auto" FontFamily="Meiryo UI" Cursor="IBeam"/>
                 </Grid>
-                <Grid Height="20" Margin="0,5,0,0">
+                <Grid Height="22" Margin="0,5,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="40"/>
                         <ColumnDefinition Width="40"/>
@@ -95,11 +95,11 @@
                     <TextBox Grid.Column="1" Text="{Binding CheckSumSettings/BlankText.Value}" IsReadOnly="{Binding IsReadOnlyCheckSumSettings.Value}" Height="auto" Width="auto" FontFamily="Meiryo UI" Cursor="IBeam" TextAlignment="Left"/>
                     <TextBlock Grid.Column="2" Text=""/>
                     <TextBlock Grid.Column="3" Text="Length" Width="auto" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Meiryo UI"/>
-                    <ComboBox Grid.Column="4" VerticalAlignment="Center" SelectedIndex="{Binding CheckSumSettings/LengthValue.Value}" IsReadOnly="{Binding IsReadOnlyCheckSumSettings.Value}" FontFamily="Meiryo UI">
-                        <ComboBoxItem Content="1 Byte"/>
-                        <ComboBoxItem Content="2 Byte"/>
-                        <ComboBoxItem Content="4 Byte"/>
-                        <ComboBoxItem Content="8 Byte"/>
+                    <ComboBox Grid.Column="4" SelectedIndex="{Binding CheckSumSettings/LengthValue.Value}" IsReadOnly="{Binding IsReadOnlyCheckSumSettings.Value}" FontFamily="Meiryo UI">
+                        <ComboBoxItem Content="1 Byte" VerticalAlignment="Center"/>
+                        <ComboBoxItem Content="2 Byte" VerticalAlignment="Center"/>
+                        <ComboBoxItem Content="4 Byte" VerticalAlignment="Center"/>
+                        <ComboBoxItem Content="8 Byte" VerticalAlignment="Center"/>
                     </ComboBox>
                 </Grid>
                 <Grid Height="22" Margin="0,5,0,0">
