@@ -8,7 +8,7 @@
         xmlns:ri="clr-namespace:Reactive.Bindings.Interactivity;assembly=ReactiveProperty.WPF"
         mc:Ignorable="d"
         Title="HexTextUtil" Height="340" Width="308" MinWidth="350" MinHeight="350">
-    <Grid Background="#FFF1F2F3">
+    <Grid Background="#FFF9F9F9">
         <Grid Margin="0,10,0,0" Height="20" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="70"/>
@@ -28,21 +28,24 @@
             </TextBox>
             <Button Grid.Row="0" Grid.Column="2" Command="{Binding HexFileRead}" IsEnabled="{Binding IsEnableHexFileUpdate.Value}" Content="Read" Margin="5,0,15,0" Cursor="Hand"/>
         </Grid>
-        <GroupBox Header="HexTextFile Info" HorizontalAlignment="Left" Margin="10,37,0,0" Width="233"  Height="73" VerticalAlignment="Top" Background="White">
-            <Grid>
-                <Grid Height="20" VerticalAlignment="Top" Margin="0,2,0,0">
+        <StackPanel Margin="10,37,0,0" Height="auto" VerticalAlignment="Top" HorizontalAlignment="Left" Width="210">
+            <StackPanel Margin="0,0,0,10">
+                <Grid Background="#FF489EFF" Height="22">
+                    <TextBlock Text="HexTextFile Info" Margin="5,0,0,0" Foreground="White" VerticalAlignment="Center"/>
+                </Grid>
+                <Grid Height="20" Margin="0,5,0,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="55"/>
-                        <ColumnDefinition Width="70"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="10"/>
                         <ColumnDefinition Width="70"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Text="Address" TextWrapping="Wrap" ToolTip="HexFile内に記載されたデータアドレス範囲" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <TextBox Grid.Column="1" Text="{Binding HexTextAddressBegin.Value, Mode=OneWay}" IsReadOnly="True" Height="auto" Width="auto" FontFamily="Meiryo UI"/>
-                    <TextBlock Grid.Column="2" Text="--" Width="auto" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <TextBlock Grid.Column="2" Text="-" Width="auto" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" />
                     <TextBox Grid.Column="3" Text="{Binding HexTextAddressEnd.Value, Mode=OneWay}" IsReadOnly="True" Height="auto" Width="auto" FontFamily="Meiryo UI" Cursor="IBeam"/>
                 </Grid>
-                <Grid Margin="0,29,0,0" Height="20" VerticalAlignment="Top">
+                <Grid Height="20" Margin="0,5,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="50"/>
                         <ColumnDefinition Width="50"/>
@@ -52,35 +55,35 @@
                     <RadioButton Grid.Column="1" Content="mot" IsChecked="{Binding HexTextFormatMot.Value}" IsHitTestVisible="False" VerticalAlignment="Center"/>
                     <TextBox Grid.Column="2" Text="{Binding HexTextLoadStatus.Value, Mode=OneWay}" IsReadOnly="True" Margin="5,0,0,0" Cursor="IBeam"/>
                 </Grid>
-            </Grid>
-        </GroupBox>
-        <GroupBox HorizontalAlignment="Left" Margin="10,117,0,0" Width="233" Height="158" VerticalAlignment="Top" Background="White">
-            <GroupBox.Header>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="CheckSum Info" FontFamily="Meiryo UI" FontSize="11" Margin="0,4,11,0"/>
-                    <ComboBox Width="110" Padding="7,0,0,0" ItemsSource="{Binding CheckSumSettings, Mode=OneWay}" SelectedIndex="{Binding SelectIndexCheckSumSettings.Value}" IsSynchronizedWithCurrentItem="True">
+            </StackPanel>
+            <StackPanel>
+                <Grid Height="22" Background="#FF489EFF">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="95"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Margin="5,0,0,0" Text="CheckSum Info" FontFamily="Meiryo UI" FontSize="11" VerticalAlignment="Center" Foreground="White" />
+                    <ComboBox Grid.Column="1" Height="20" Margin="0,0,2,0" VerticalAlignment="Center" ItemsSource="{Binding CheckSumSettings, Mode=OneWay}" SelectedIndex="{Binding SelectIndexCheckSumSettings.Value}" IsSynchronizedWithCurrentItem="True">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Name}" />
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                </StackPanel>
-            </GroupBox.Header>
-            <Grid Width="auto">
-                <Grid Height="20" VerticalAlignment="Top" Margin="0,5,0,0">
+                </Grid>
+                <Grid Height="20" Margin="0,5,0,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="55"/>
-                        <ColumnDefinition Width="70"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="10"/>
                         <ColumnDefinition Width="70"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Text="Address" TextWrapping="Wrap" ToolTip="CheckSum計算範囲" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <TextBox Grid.Column="1" Text="{Binding CheckSumSettings/AddressRangeBeginText.Value}" IsReadOnly="{Binding IsReadOnlyCheckSumSettings.Value}" Height="auto" Width="auto" FontFamily="Meiryo UI" Cursor="IBeam"/>
-                    <TextBlock Grid.Column="2" Text="--" Width="auto" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="2" Text="-" Width="auto" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <TextBox Grid.Column="3" Text="{Binding CheckSumSettings/AddressRangeEndText.Value}" IsReadOnly="{Binding IsReadOnlyCheckSumSettings.Value}" Height="auto" Width="auto" FontFamily="Meiryo UI" Cursor="IBeam"/>
                 </Grid>
-                <Grid Height="22" Margin="0,32,0,0" VerticalAlignment="Top">
+                <Grid Height="20" Margin="0,5,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="40"/>
                         <ColumnDefinition Width="40"/>
@@ -92,14 +95,14 @@
                     <TextBox Grid.Column="1" Text="{Binding CheckSumSettings/BlankText.Value}" IsReadOnly="{Binding IsReadOnlyCheckSumSettings.Value}" Height="auto" Width="auto" FontFamily="Meiryo UI" Cursor="IBeam" TextAlignment="Left"/>
                     <TextBlock Grid.Column="2" Text=""/>
                     <TextBlock Grid.Column="3" Text="Length" Width="auto" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Meiryo UI"/>
-                    <ComboBox Grid.Column="4" SelectedIndex="{Binding CheckSumSettings/LengthValue.Value}" IsReadOnly="{Binding IsReadOnlyCheckSumSettings.Value}" FontFamily="Meiryo UI">
+                    <ComboBox Grid.Column="4" VerticalAlignment="Center" SelectedIndex="{Binding CheckSumSettings/LengthValue.Value}" IsReadOnly="{Binding IsReadOnlyCheckSumSettings.Value}" FontFamily="Meiryo UI">
                         <ComboBoxItem Content="1 Byte"/>
                         <ComboBoxItem Content="2 Byte"/>
                         <ComboBoxItem Content="4 Byte"/>
                         <ComboBoxItem Content="8 Byte"/>
                     </ComboBox>
                 </Grid>
-                <Grid Margin="0,60,0,0" Height="22" VerticalAlignment="Top">
+                <Grid Height="22" Margin="0,5,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="70"/>
                         <ColumnDefinition Width="70"/>
@@ -109,14 +112,15 @@
                     <CheckBox Grid.Column="1" Width="auto" IsChecked="{Binding CheckSumSettings/CalcTwosComp.Value}" IsEnabled="{Binding IsEnableCheckSumSettings.Value}" Content="2の補数" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <Button Grid.Column="2" Content="Calc" Command="{Binding CalcCheckSum}" IsEnabled="{Binding IsEnableHexFileUpdate.Value}" Margin="10,0,5,0" Padding="0"/>
                 </Grid>
-                <Grid Margin="0,90,0,0" Height="40" VerticalAlignment="Top">
+                <Grid Height="40" Margin="0,5,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <TextBox Grid.Column="1" Text="{Binding CalcCheckSumResult.Value, Mode=OneWay}" IsReadOnly="True" AcceptsReturn="True" Cursor="IBeam" FontFamily="Meiryo UI"/>
                 </Grid>
-            </Grid>
-        </GroupBox>
+            </StackPanel>
+        </StackPanel>
+
         <StatusBar Height="24" VerticalAlignment="Bottom" BorderBrush="Black">
             <StatusBarItem>
                 <Label Content="{Binding StatusBarMessage.Value}" Margin="0" Padding="0"/>
