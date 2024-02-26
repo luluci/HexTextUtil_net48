@@ -219,7 +219,7 @@ namespace HexTextUtil.HexText.HexTextLoader
             var result = new HexTextRecord();
             result.Address = GetAddressOffset(bytes, addressLen) + relAddress;
             result.Record = bytes;
-            result.Data = new ArraySegment<byte>(result.Record, dataBegin, dataEnd- dataBegin).ToArray();
+            result.Data = new ArraySegment<byte>(result.Record, dataBegin, dataEnd - dataBegin).ToArray();
             result.DataStr = line.Substring(dataBegin * 2, length * 2);
             return result;
         }
