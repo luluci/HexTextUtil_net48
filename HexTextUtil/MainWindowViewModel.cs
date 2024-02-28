@@ -69,7 +69,6 @@ namespace HexTextUtil
         {
             // Configロード
             Config = new Config();
-            Config.Load();
             // hex/motファイル指定GUI
             IsEnableHexFileUpdate
                 .AddTo(disposables);
@@ -131,7 +130,15 @@ namespace HexTextUtil
             SelectIndexCheckSumSettings
                 .Subscribe(_ =>
                 {
-                    var config = Config.ChecksumSettings[SelectIndexCheckSumSettings.Value];
+                    CheckSumSetting config;
+                    if (Config.ChecksumSettings.Count > 0)
+                    {
+                        config = Config.ChecksumSettings[SelectIndexCheckSumSettings.Value];
+                    }
+                    else
+                    {
+                        config = Config.ManualCalcSetting;
+                    }
                     IsReadOnlyCheckSumSettings.Value = config.AddressRangeFix;
                     IsEnableCheckSumSettings.Value = !config.AddressRangeFix;
                 })
@@ -160,6 +167,11 @@ namespace HexTextUtil
             // 
             StatusBarMessage
                 .AddTo(disposables);
+        }
+
+        public async Task Init()
+        {
+            await Config.Load();
         }
 
         private async Task OnClickHexFileRead(object sender)

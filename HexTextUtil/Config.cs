@@ -14,6 +14,7 @@ using Reactive.Bindings.Extensions;
 using System.Reactive.Disposables;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Security.Cryptography;
 
 namespace HexTextUtil
 {
@@ -26,28 +27,25 @@ namespace HexTextUtil
 
         private ObservableCollection<CheckSumSetting> checksumSettings;
         public ObservableCollection<CheckSumSetting> ChecksumSettings { get { return checksumSettings; } }
+        public CheckSumSetting ManualCalcSetting = new CheckSumSetting();
 
         public Config()
         {
             // パス設定
             configFilePath = System.Reflection.Assembly.GetExecutingAssembly().Location + @".json";
-            // 設定初期化
-            // hex/motからの読み込み値を反映する設定をデフォルトでセット
+            // 設定リスト初期化
             checksumSettings = new ObservableCollection<CheckSumSetting>();
-            var def = new CheckSumSetting();
-            def.Name = "<Manual>";
-            def.AddressRangeFix = false;
-            def.AddressRangeBeginText.Value = "<auto>";
-            def.AddressRangeEndText.Value = "<auto>";
-            checksumSettings.Add(def);
+            // hex/motからの読み込み値を反映する設定をデフォルトとして作成
+            ManualCalcSetting.Name = "<Manual>";
+            ManualCalcSetting.AddressRangeFix = false;
+            ManualCalcSetting.AddressRangeBeginText.Value = "<auto>";
+            ManualCalcSetting.AddressRangeEndText.Value = "<auto>";
+            // 設定ファイルに記載した設定を上位に表示するために
+            // 設定としての登録は設定ファイル読み込み後に行う
+            // checksumSettings.Add(def);
         }
 
-        public void Load()
-        {
-            LoadImpl(false).Wait();
-        }
-
-        public async Task LoadAsync()
+        public async Task Load()
         {
             await LoadImpl(true);
         }
@@ -99,6 +97,8 @@ namespace HexTextUtil
             }
             // JSONデータを制御値に反映
             LoadCheckSumSettings();
+            //
+            checksumSettings.Add(ManualCalcSetting);
         }
 
         private void LoadCheckSumSettings()

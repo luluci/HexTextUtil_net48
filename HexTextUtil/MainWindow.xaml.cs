@@ -25,11 +25,11 @@ namespace HexTextUtil
 
         public MainWindow()
         {
-            InitializeComponent();
-
             try
             {
                 this.vm = new MainWindowViewModel();
+                InitializeComponent();
+
             }
             catch (Exception ex)
             {
@@ -38,6 +38,16 @@ namespace HexTextUtil
                 return;
             }
             this.DataContext = this.vm;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private async void Window_Initialized(object sender, EventArgs e)
+        {
+            // InitializeComponent();の中からコールされるぽい？
+            await vm.Init();
         }
     }
 }
