@@ -51,7 +51,7 @@ namespace HexTextUtil
         public ReactivePropertySlim<string> HexTextLoadStatus { get; } = new ReactivePropertySlim<string>("");
         // CheckSum Info 設定GUI
         public ObservableCollection<CheckSumSetting> CheckSumSettings { get { return Config.ChecksumSettings; } }
-        public ReactivePropertySlim<int> SelectIndexCheckSumSettings { get; set; } = new ReactivePropertySlim<int>(0);
+        public ReactivePropertySlim<int> SelectIndexCheckSumSettings { get; set; } = new ReactivePropertySlim<int>(0, ReactivePropertyMode.DistinctUntilChanged);
         public ReactivePropertySlim<bool> IsReadOnlyCheckSumSettings { get; } = new ReactivePropertySlim<bool>(false);
         public ReactivePropertySlim<bool> IsEnableCheckSumSettings { get; } = new ReactivePropertySlim<bool>(true);
         // CheckSum計算GUI
@@ -143,7 +143,6 @@ namespace HexTextUtil
                     IsEnableCheckSumSettings.Value = !config.AddressRangeFix;
                 })
                 .AddTo(disposables);
-            SelectIndexCheckSumSettings.Value = 0;
             //
             CalcCheckSum
                 .Subscribe(async _ =>
