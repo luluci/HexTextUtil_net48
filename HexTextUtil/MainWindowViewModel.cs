@@ -215,7 +215,8 @@ namespace HexTextUtil
                 HexTextFormatIntel.Value = ishex;
                 HexTextFormatMot.Value = !ishex;
                 // CheckSum Info
-                var config = Config.ChecksumSettings[0];
+                // <Manual>コンフィグにロードしたファイルのアドレス範囲を反映
+                var config = Config.ManualCalcSetting;
                 if (!config.AddressRangeFix)
                 {
                     config.AddressRangeBegin.Value = hex.AddressBegin;
